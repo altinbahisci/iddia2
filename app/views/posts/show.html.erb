@@ -6,9 +6,9 @@
       </div>
       <div class="col-sm-8 col-md-8">
         <% if @post.onay==nil %> 
-        <div class="theTitle">
+        <div class="theTitle left">
         <h1>&nbsp;&nbsp;&nbsp;&nbsp;İddia Oranları</h1>
-        </div>
+        
         
      
          <script type="text/javascript">
@@ -55,7 +55,9 @@
                       <span class="glyphicon glyphicon-ok"><b> Min:100 Max:2000 </b></span>
                     </div><br>
                     
-                    
+                     <div class="field">
+                        <span class="glyphicon glyphicon-ok"> Kupon Tutarı:</b> &nbsp;</span><%= f.text_field :tutar %><br>
+                    </div><br>
                      
                      <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
                      <%= f.hidden_field :onay, :value => 1.to_i%>
@@ -65,10 +67,11 @@
                     <br><br>
                   <% end %>
                 </li>  
+                </div>
            <%end%> 
     
       <% if @post.onay==1 %> 
-          <div class="theTitle">
+          <div class="theTitle left">
         <h1>&nbsp;&nbsp;&nbsp;&nbsp;İddia Oranları</h1>
         </div>
         
@@ -125,10 +128,11 @@
                     <br><br>
                   <% end %>
                 </li>  
+              </div>  
           <%end%>     
           
-            <% if @post.onay==2 %> 
-          <div class="theTitle">
+        <% if @post.onay==2 %> 
+          <div class="theTitle left">
         <h1>&nbsp;&nbsp;&nbsp;&nbsp;İddia Oranları</h1>
         </div>
         
@@ -163,23 +167,24 @@
             
             </div>      
           </ul>
-          <% @sumson=@post.sum.to_f* Comment.where(post_id: @post.id).last.sum.to_f%>
+          <% @sumson=@post.sum.to_f* Comment.where(post_id: @post.id).last.sum.to_f*@post.tutar.to_f%>
                 <li class="list-group-item">
             <%= form_for(@post, :remote=>'true') do |f| %>
                     <div class="field">
                       <span class="glyphicon glyphicon-ok"> Misli: <b><%=@post.sum%></b> &nbsp;</span><%= f.hidden_field :sum, :value => @sumson  %>
+                      <span class="glyphicon glyphicon-ok"> Kupon Tutarı: <b><%=@post.tutar.to_f%></b> &nbsp;</span>
                     </div><br>
                      <p class="price" id="price"><%= @sumson.round(2)  %> TL</p>
                      <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
                      <%= f.hidden_field :onay, :value => 1.to_i%>
                     <div class="actions">
-                      <% if current_user.bakiye.to_f > 0 %>
+                      <% if current_user.bakiye.to_f > @post.tutar.to_f %> 
                           <%= f.submit 'Kuponu Yatır', class:'btn btn-md btn-warning' %>
                       <% end %>
                     </div>
                     <br><br>
             <% end %>
-            
+          </div>  
                 </li>  
         <%end%>         
       </div>
@@ -199,7 +204,7 @@
         
         
       <% if @post.onay==nil %> 
-        <div class="theTitle">
+        <div class="theTitle left">
         <h1>İddia Oranları</h1>
         </div>
       
@@ -247,7 +252,9 @@
                       <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,@sum*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
                        <span class="glyphicon glyphicon-ok"><b> Min:100 Max:2000 </b></span>
                     </div><br>
-         
+                     <div class="field">
+                        <span class="glyphicon glyphicon-ok"> Kupon Tutarı:</b> &nbsp;</span><%= f.text_field :tutar %><br>
+                    </div><br>
                     
                      
                      <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
@@ -258,15 +265,16 @@
                     
             <% end %>
                 </li>  
+                </div>
       <%end%> 
            
            
        
           
       <% if @post.onay==2 %> 
-        <div class="theTitle center">
+        <div class="theTitle left">
         <h1>Düzenlenmiş Kuponum</h1>
-        </div>
+       
         
      
          <script type="text/javascript">
@@ -280,8 +288,8 @@
             </div>
            
             
-                <br><br><br>  <br>
-          <div class="container" id="fixed" style="margin-left: 770px;"> 
+          
+          <div class="container" id="fixed"> 
             <div class="col-md-4" >
               <div class="pricing_header">
               <h2>KUPONUM</h2>
@@ -306,17 +314,20 @@
           </div> 
           </ul>
         
-           <% @sumson=@post.sum.to_f* Comment.where(post_id: @post.id).last.sum.to_f%>
+           <% @sumson=@post.sum.to_f* Comment.where(post_id: @post.id).last.sum.to_f*@post.tutar.to_f%>
                 <li class="list-group-item">
             <%= form_for(@post, :remote=>'true') do |f| %>
                     <div class="field">
                       <span class="glyphicon glyphicon-ok"> Misli: <b><%=@post.sum%></b> &nbsp;</span><%= f.hidden_field :sum, :value => @sumson  %>
+                      <span class="glyphicon glyphicon-ok"> Kupon Tutarı: <b><%=@post.tutar.to_f%></b> &nbsp;</span>
                     </div><br>
+                    
                      <p class="price" id="price"><%= @sumson.round(2)  %> TL</p>
+                     
                      <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
                      <%= f.hidden_field :onay, :value => 1.to_i%>
                     <div class="actions">
-                      <% if current_user.bakiye.to_f > 0 %>
+                      <% if (current_user.bakiye.to_f > @post.tutar.to_f ) && ( @post.tutar.to_f != 0 ) %>
                           <%= f.submit 'Kuponu Yatır', class:'btn btn-md btn-warning' %>
                       <% end %>
                     </div>
@@ -324,15 +335,16 @@
             <% end %>
             
                 </li>  
+                 </div>
       <%end%>         
         
         
         
       <% if @post.onay==1 %> 
-        <div class="theTitle center">
+        <div class="theTitle ">
         <h1>Yatırılmış Kupon</h1>
         </div>
-          <div class="container" style="margin-left: 240px;">
+          <div class="container" style="margin-left: 0px;">
             <div class="col-md-4" id="home-box">
               <div class="pricing_header">
               <h2>KUPONUM</h2>
@@ -350,47 +362,53 @@
           </ul>
                 <li class="list-group-item">
                     <br>
-                    <p class="price" id="price"><%=@post.sum.round(2)%> TL</p>
+                    
+                      <div class="field">
+                      <span class="glyphicon glyphicon-ok"> Misli : <b><%=@post.tutar.to_f%></b> &nbsp;</span><br><br>
+                      <p class="price" id="price">Kazanç:<%=@post.sum.round(2)%> TL</p>
+                    </div><br>
+                    
                     <div class="actions">
                          <button  style="margin-top:25px;"  class="btn btn-success btn-lg" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Kupon Sorgulanıyor...(min 1-2 dk)">Para Çek</button>
                     </div>
                     <br><br>  <br><br>
-            </li>  
+            </li> 
+            <% if (User.where(email: 'nana@gmail.com').last.bakiye.to_f) == 214.4 %>       
+                <script>
+                $('.btn').on('click', function() {
+                    
+                       var $this = $(this);
+                      $this.button('loading');
+                        setTimeout(function() {
+                           $this.button('reset');
+                       }, 20000);
+                    setTimeout(function() {
+                        document.getElementById("sa").innerHTML =  "<div class='alert alert-success' role='alert'><h4 class='alert-heading'><b>Tebrikler...</b></h4><p>Sorgulanan kupon için ikramiye mevcuttur. 30 dk içerisinde hesabınıza yüklenecektir. </p></div><br><br>";
+                   }, 22000);
+                       
+                   
+                });
+                </script>
+              <%else%>
+                  <script>
+                    $('.btn').on('click', function() {
+                        
+                           var $this = $(this);
+                          $this.button('loading');
+                            setTimeout(function() {
+                               $this.button('reset');
+                           }, 5000);
+                        setTimeout(function() {
+                            document.getElementById("sa").innerHTML =  "<div class='alert alert-warning' role='alert'><h4 class='alert-heading'><b>Uyari...</b></h4><p>Kuponunuzda henüz tamamlanmamış maçlar mevcuttur. </p></div><br><br>";
+                       }, 6000);
+                           
+                       
+                    });
+                    </script>
+              <%end%>
+
       <%end%>     
           
-          <% if (User.where(email: 'nana@gmail.com').last.bakiye.to_f) == 214.4 %>       
-  <script>
-  $('.btn').on('click', function() {
-      
-         var $this = $(this);
-        $this.button('loading');
-          setTimeout(function() {
-             $this.button('reset');
-         }, 20000);
-      setTimeout(function() {
-          document.getElementById("sa").innerHTML =  "<div class='alert alert-success' role='alert'><h4 class='alert-heading'><b>Tebrikler...</b></h4><p>Sorgulanan kupon için ikramiye mevcuttur. 30 dk içerisinde hesabınıza yüklenecektir. </p></div><br><br>";
-     }, 22000);
-         
-     
-  });
-  </script>
-<%else%>
-    <script>
-      $('.btn').on('click', function() {
-          
-             var $this = $(this);
-            $this.button('loading');
-              setTimeout(function() {
-                 $this.button('reset');
-             }, 5000);
-          setTimeout(function() {
-              document.getElementById("sa").innerHTML =  "<div class='alert alert-warning' role='alert'><h4 class='alert-heading'><b>Uyari...</b></h4><p>Kuponunuzda henüz tamamlanmamış maçlar mevcuttur. </p></div><br><br>";
-         }, 6000);
-             
-         
-      });
-      </script>
-<%end%>
 
       </div>
     

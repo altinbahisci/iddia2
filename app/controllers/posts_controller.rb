@@ -66,14 +66,14 @@ class PostsController < ApplicationController
       end
     else
       if (current_user.bakiye>0) && (Post.find(params[:id]).onay==2)
-        if (current_user.bakiye.to_f) > (Comment.where(post_id: params[:id]).last.sum.to_f*Post.find(params[:id]).sum.to_f)
+        if (current_user.bakiye.to_f) > (Post.find(params[:id]).tutar.to_f)
           respond_to do |format|
             if @post.update(post_params)
               format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi.' }
               format.json { render :show, status: :ok, location: @post }
               @bakiyeuser=User.find(current_user.id).bakiye
-              @onayPosts = Post.where(user_id: current_user.id , onay:1).last 
-              @yenibakiye = @bakiyeuser - @onayPosts.sum
+              @onayPosts = Post.find(params[:id]).tutar.to_f
+              @yenibakiye = @bakiyeuser - @onayPosts
               
               
               
@@ -88,23 +88,23 @@ class PostsController < ApplicationController
         else
           redirect_to posts_path, notice:"Yetersiz Bakiye!"
         end 
-      else
-        redirect_to posts_path
-      end
-      
-      if  Post.find(params[:id]).onay==nil
+
+      elsif Post.find(params[:id]).onay==nil
           respond_to do |format|
             if @post.update(post_params)
               format.js
               format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi..' }
               format.json { render :show, status: :ok, location: @post }
-              
+              redirect_to posts_path
             else
               format.html { render :edit }
               format.json { render json: @post.errors, status: :unprocessable_entity }
             end
           end
+      else
+        redirect_to posts_path
       end
+    
     end
     
     
@@ -157,7 +157,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title,:sum,:onay,:bakiye,:product)
+      params.require(:post).permit(:title,:sum,:onay,:bakiye,:product,:tutar)
     end
     
     def iddia
