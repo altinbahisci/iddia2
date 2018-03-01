@@ -66,7 +66,7 @@ class PostsController < ApplicationController
       end
     else
       
-      if (current_user.bakiye>0) && (Post.find(params[:id]).onay==nil)
+      if ((current_user.bakiye>0) &&(Post.find(params[:id]).onay==nil))
           respond_to do |format|
             if @post.update(post_params)
               format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi.' }
@@ -81,8 +81,8 @@ class PostsController < ApplicationController
       end
       
       
-      if (current_user.bakiye>0) && (Post.find(params[:id]).onay==2)
-        if (current_user.bakiye.to_f) > (Post.find(params[:id]).tutar.to_f)
+      if ((current_user.bakiye>0) && (Post.find(params[:id]).onay==2))
+        if ((current_user.bakiye.to_f) > (Post.find(params[:id]).tutar.to_f))
           respond_to do |format|
             if @post.update(post_params)
               format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi.' }
