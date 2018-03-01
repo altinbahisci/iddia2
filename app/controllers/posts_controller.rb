@@ -54,17 +54,16 @@ class PostsController < ApplicationController
 
     if current_user.email=='admin@admin.com'
         if Post.find(params[:id]).onay==2
+          @yenibakiye=Post.find(params[:id]).bakiye.to_f
+          @user_id=@post.user.id
+   
           respond_to do |format|
             if @post.update(post_params)
               format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi.' }
               format.json { render :show, status: :ok, location: @post }
-              @bakiyeuser=User.find(current_user.id).bakiye
-              @onayPosts = Post.find(params[:id]).tutar.to_f
-              @yenibakiye = @bakiyeuser - @onayPosts
-              
-              
-              
-              @u = User.find(current_user.id) 
+
+            
+              @u = User.where(id: @user_id) 
               @u.update_attributes(bakiye: @yenibakiye) 
              
             else
