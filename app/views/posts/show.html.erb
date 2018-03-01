@@ -175,7 +175,7 @@
                       <span class="glyphicon glyphicon-ok"> Kupon Tutarı: <b><%=@post.tutar.to_f%></b> &nbsp;</span>
                     </div><br>
                      <p class="price" id="price"><%= @sumson.round(2)  %> TL</p>
-                     <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
+                     <%= f.hidden_field :bakiye, :value => @post.user.bakiye%>
                      <%= f.hidden_field :onay, :value => 1.to_i%>
                     <div class="actions">
                       <% if current_user.bakiye.to_f > @post.tutar.to_f %> 
