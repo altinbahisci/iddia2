@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show,:edit, :update, :destroy,:kontrol]
-  before_action :iddia
+  
   before_action :authenticate_user!, only: [:new,:show, :edit, :destroy]
   before_action :kontrol, only:[:edit, :destroy,:show]
   
