@@ -1,0 +1,482 @@
+<% if current_user.email=='admin@admin.com' %> 
+<div class="section nomargin notopborder nobg">
+  <div class="container-fluid">  
+    <div class="row">
+      <div class="col-sm-1 col-md-1">
+      </div>
+      <div class="col-sm-8 col-md-8">
+        <% if @post.onay==nil %> 
+        <div class="theTitle">
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;İddia Oranları</h1>
+        </div>
+        
+     
+         <script type="text/javascript">
+           function changeFunc() {
+            var selectBox = document.getElementById("selectBox");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            document.getElementById("price").innerHTML =(Math.round(selectedValue * 100)/100).toFixed(2)+' TL';
+           }
+          </script>
+          <%=render 'comments/form'%>
+            </div>
+           
+            <div class="col-sm-3 col-md-3" >
+                <br><br><br>  <br>
+             <div class="container" id="fixed"> 
+            <div class="col-md-4" >
+              <div class="pricing_header">
+              <h2>KUPONUM</h2>
+               <h2> <%=@post.title%> </h2>
+      		<div class="space"></div>
+      		</div>
+      		<ul class="list-group">
+              <%@sum=1%>  
+           
+              <%@comments.each do |c|%>
+                <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> &emsp;
+                <%= link_to '',[@post, c], class:"glyphicon glyphicon-trash" ,method: :delete, data: { confirm: 'Maçı Silmek istiyormusunuz?' } %>&emsp;
+                <b><%=c.bdy%></b>&emsp;
+                <b class="btn-danger btn-xs"><%=c.kod%></b><br><b><%=c.mac%></b><br><b>MS : <%=c.durum%></b>&emsp;<b class="btn-primary btn-xs"><%=c.mbs%>
+                </b>&emsp;<b>Oran : <%=c.oran%></b>
+                </li>
+                <% @sum=c.sum.to_f %>
+                
+              <%end%>
+            
+                <div id="comments">
+            
+            </div>      
+          </ul>
+                <li class="list-group-item">
+                  <%= form_for(@post, :remote=>'true') do |f| %>
+                    <div class="field">
+                      <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,@sum*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
+                      <span class="glyphicon glyphicon-ok"><b> Min:100 Max:2000 </b></span>
+                    </div><br>
+                    
+                    
+                     
+                     <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
+                     <%= f.hidden_field :onay, :value => 1.to_i%>
+                    <div class="actions">
+                          <%= f.submit 'Kuponu Yatır', class:'btn btn-md btn-warning' %>
+                    </div>
+                    <br><br>
+                  <% end %>
+                </li>  
+           <%end%> 
+    
+      <% if @post.onay==1 %> 
+          <div class="theTitle">
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;İddia Oranları</h1>
+        </div>
+        
+     
+         <script type="text/javascript">
+           function changeFunc() {
+            var selectBox = document.getElementById("selectBox");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            document.getElementById("price").innerHTML =(Math.round(selectedValue * 100)/100).toFixed(2)+' TL';
+           }
+          </script>
+          <%=render 'comments/form'%>
+            </div>
+           
+            <div class="col-sm-3 col-md-3" >
+                <br><br><br>  <br>
+             <div class="container" id="fixed"> 
+            <div class="col-md-4" >
+              <div class="pricing_header">
+              <h2>KUPONUM</h2>
+               <h2> <%=@post.title%> </h2>
+      		<div class="space"></div>
+      		</div>
+      		<ul class="list-group">
+              <%@sum=1%>  
+           
+              <%@comments.each do |c|%>
+                <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> &emsp;
+                <%= link_to '',[@post, c], class:"glyphicon glyphicon-trash" ,method: :delete, data: { confirm: 'Maçı Silmek istiyormusunuz?' } %>&emsp;
+                <b><%=c.bdy%></b>&emsp;
+                <b class="btn-danger btn-xs"><%=c.kod%></b><br><b><%=c.mac%></b><br><b>MS : <%=c.durum%></b>&emsp;<b class="btn-primary btn-xs"><%=c.mbs%>
+                </b>&emsp;<b>Oran : <%=c.oran%></b>
+                </li>
+                <% @sum=c.sum.to_f %>
+                
+              <%end%>
+            
+                <div id="comments">
+            
+            </div>      
+          </ul>
+                <li class="list-group-item">
+                  <%= form_for(@post, :remote=>'true') do |f| %>
+                    <div class="field">
+                      <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,@sum*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
+                      <span class="glyphicon glyphicon-ok"><b> Min:100 Max:2000 </b></span>
+                    </div><br>
+                    <p class="price" id="price"><%=@post.sum.round(2)%> TL</p>
+                     <%= f.hidden_field :bakiye, :value => @post.user.bakiye.to_f%>
+                     <%= f.hidden_field :onay, :value => 1.to_i%>
+                    <div class="actions">
+                          <%= f.submit 'Kuponu Yatır', class:'btn btn-md btn-warning' %>
+                    </div>
+                    <br><br>
+                  <% end %>
+                </li>  
+          <%end%>     
+          
+            <% if @post.onay==2 %> 
+          <div class="theTitle">
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;İddia Oranları</h1>
+        </div>
+        
+
+          <%=render 'comments/form'%>
+            </div>
+           
+            <div class="col-sm-3 col-md-3" >
+                <br><br><br>  <br>
+             <div class="container" id="fixed"> 
+            <div class="col-md-4" >
+              <div class="pricing_header">
+              <h2>KUPONUM</h2>
+               <h2> <%=@post.title%> </h2>
+      		<div class="space"></div>
+      		</div>
+      		<ul class="list-group">
+              <%@sum=1%>  
+           
+              <%@comments.each do |c|%>
+                <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> &emsp;
+                <%= link_to '',[@post, c], class:"glyphicon glyphicon-trash" ,method: :delete, data: { confirm: 'Maçı Silmek istiyormusunuz?' } %>&emsp;
+                <b><%=c.bdy%></b>&emsp;
+                <b class="btn-danger btn-xs"><%=c.kod%></b><br><b><%=c.mac%></b><br><b>MS : <%=c.durum%></b>&emsp;<b class="btn-primary btn-xs"><%=c.mbs%>
+                </b>&emsp;<b>Oran : <%=c.oran%></b>
+                </li>
+                <% @sum=c.sum.to_f %>
+                
+              <%end%>
+            
+                <div id="comments">
+            
+            </div>      
+          </ul>
+          <% @sumson=@post.sum.to_f* Comment.where(post_id: @post.id).last.sum.to_f%>
+                <li class="list-group-item">
+            <%= form_for(@post, :remote=>'true') do |f| %>
+                    <div class="field">
+                      <span class="glyphicon glyphicon-ok"> Misli: <b><%=@post.sum%></b> &nbsp;</span><%= f.hidden_field :sum, :value => @sumson  %>
+                    </div><br>
+                     <p class="price" id="price"><%= @sumson.round(2)  %> TL</p>
+                     <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
+                     <%= f.hidden_field :onay, :value => 1.to_i%>
+                    <div class="actions">
+                      <% if current_user.bakiye.to_f > 0 %>
+                          <%= f.submit 'Kuponu Yatır', class:'btn btn-md btn-warning' %>
+                      <% end %>
+                    </div>
+                    <br><br>
+            <% end %>
+            
+                </li>  
+        <%end%>         
+      </div>
+    </div>
+  </div>
+</div>        
+<br><br><br><br><br>
+<%else%>
+<div class="section nomargin notopborder nobg">
+  <div class="container-fluid">  
+    <div class="row">
+      <div class="col-sm-1 col-md-1">
+      </div>
+      <div class="col-sm-8 col-md-8">
+        
+        
+        
+        
+      <% if @post.onay==nil %> 
+        <div class="theTitle">
+        <h1>İddia Oranları</h1>
+        </div>
+      
+         <script type="text/javascript">
+           function changeFunc() {
+            var selectBox = document.getElementById("selectBox");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            document.getElementById("price").innerHTML =(Math.round(selectedValue * 100)/100).toFixed(2)+' TL';
+           }
+          </script>
+          <%=render 'comments/form'%>
+            </div>
+           
+            <div class="col-sm-3 col-md-3 " >
+                <br><br><br>  <br>
+             <div class="container" id="fixed" > 
+            <div class="col-md-4" >
+              <div class="pricing_header">
+              <h2>KUPONUM</h2>
+               <h2> <%=@post.title%> </h2>
+      		<div class="space"></div>
+      		</div>
+      		<ul class="list-group">
+              <%@sum=1%>  
+           
+              <%@comments.each do |c|%>
+                <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> &emsp;
+                <%= link_to '',[@post, c], class:"glyphicon glyphicon-trash" ,method: :delete, data: { confirm: 'Maçı Silmek istiyormusunuz?' } %>&emsp;
+                <b><%=c.bdy%></b>&emsp;
+                <b class="btn-danger btn-xs"><%=c.kod%></b><br><b><%=c.mac%></b><br><b>MS : <%=c.durum%></b>&emsp;<b class="btn-primary btn-xs"><%=c.mbs%>
+                </b>&emsp;<b>Oran : <%=c.oran%></b>
+                </li>
+                <% @sum=c.sum %>
+                
+              <%end%>
+            
+                <div id="comments">
+          </div> 
+          </ul>
+
+                <li class="list-group-item">
+             
+            <%= form_for(@post, :remote=>'true') do |f| %>
+                    <div class="field">
+                      <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,@sum*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
+                       <span class="glyphicon glyphicon-ok"><b> Min:100 Max:2000 </b></span>
+                    </div><br>
+         
+                    
+                     
+                     <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
+                     <%= f.hidden_field :onay, :value => 2.to_i%>
+                    <div class="actions">
+                          <%= f.submit 'Düzenlemeyi bitir', class:'btn btn-md btn-warning'%>
+                    </div><br><br>
+                    
+            <% end %>
+                </li>  
+      <%end%> 
+           
+           
+       
+          
+      <% if @post.onay==2 %> 
+        <div class="theTitle center">
+        <h1>Düzenlenmiş Kuponum</h1>
+        </div>
+        
+     
+         <script type="text/javascript">
+           function changeFunc() {
+            var selectBox = document.getElementById("selectBox");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            document.getElementById("price").innerHTML =(Math.round(selectedValue * 100)/100).toFixed(2)+' TL';
+           }
+          </script>
+          
+            </div>
+           
+            
+                <br><br><br>  <br>
+          <div class="container" id="fixed" style="margin-left: 770px;"> 
+            <div class="col-md-4" >
+              <div class="pricing_header">
+              <h2>KUPONUM</h2>
+               <h2> <%=@post.title%> </h2>
+      		<div class="space"></div>
+      		</div>
+      		<ul class="list-group">
+              <%@sum=1%>  
+           
+              <%@comments.each do |c|%>
+                <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> &emsp;
+                <b><%=c.bdy%></b>&emsp;
+                <b class="btn-danger btn-xs"><%=c.kod%></b><br><b><%=c.mac%></b><br><b>MS : <%=c.durum%></b>&emsp;<b class="btn-primary btn-xs"><%=c.mbs%>
+                </b>&emsp;<b>Oran : <%=c.oran%></b>
+                </li>
+                <% @sum=c.sum.to_f %>
+                
+              <%end%>
+            
+                <div id="comments">
+           
+          </div> 
+          </ul>
+        
+           <% @sumson=@post.sum.to_f* Comment.where(post_id: @post.id).last.sum.to_f%>
+                <li class="list-group-item">
+            <%= form_for(@post, :remote=>'true') do |f| %>
+                    <div class="field">
+                      <span class="glyphicon glyphicon-ok"> Misli: <b><%=@post.sum%></b> &nbsp;</span><%= f.hidden_field :sum, :value => @sumson  %>
+                    </div><br>
+                     <p class="price" id="price"><%= @sumson.round(2)  %> TL</p>
+                     <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
+                     <%= f.hidden_field :onay, :value => 1.to_i%>
+                    <div class="actions">
+                      <% if current_user.bakiye.to_f > 0 %>
+                          <%= f.submit 'Kuponu Yatır', class:'btn btn-md btn-warning' %>
+                      <% end %>
+                    </div>
+                    <br><br>
+            <% end %>
+            
+                </li>  
+      <%end%>         
+        
+        
+        
+      <% if @post.onay==1 %> 
+        <div class="theTitle center">
+        <h1>Yatırılmış Kupon</h1>
+        </div>
+          <div class="container" style="margin-left: 240px;">
+            <div class="col-md-4" id="home-box">
+              <div class="pricing_header">
+              <h2>KUPONUM</h2>
+               <h2> <%=@post.title%> </h2>
+            <div class="space"></div>
+          </div>
+          <ul class="list-group">
+              <%@comments.each do |c|%>
+                <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> &emsp;
+                <b><%=c.bdy%></b>&emsp;
+                <b class="btn-danger btn-xs"><%=c.kod%></b><br><b><%=c.mac%></b><br><b>MS : <%=c.durum%></b>&emsp;<b class="btn-primary btn-xs"><%=c.mbs%>
+                </b>&emsp;<b>Oran : <%=c.oran%></b>
+                </li>
+              <%end%>
+          </ul>
+                <li class="list-group-item">
+                    <br>
+                    <p class="price" id="price"><%=@post.sum.round(2)%> TL</p>
+                    <div class="actions">
+                         <button  style="margin-top:25px;"  class="btn btn-success btn-lg" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Kupon Sorgulanıyor...(min 1-2 dk)">Para Çek</button>
+                    </div>
+                    <br><br>  <br><br>
+            </li>  
+      <%end%>     
+          
+          <% if (User.where(email: 'nana@gmail.com').last.bakiye.to_f) == 214.4 %>       
+  <script>
+  $('.btn').on('click', function() {
+      
+         var $this = $(this);
+        $this.button('loading');
+          setTimeout(function() {
+             $this.button('reset');
+         }, 20000);
+      setTimeout(function() {
+          document.getElementById("sa").innerHTML =  "<div class='alert alert-success' role='alert'><h4 class='alert-heading'><b>Tebrikler...</b></h4><p>Sorgulanan kupon için ikramiye mevcuttur. 30 dk içerisinde hesabınıza yüklenecektir. </p></div><br><br>";
+     }, 22000);
+         
+     
+  });
+  </script>
+<%else%>
+    <script>
+      $('.btn').on('click', function() {
+          
+             var $this = $(this);
+            $this.button('loading');
+              setTimeout(function() {
+                 $this.button('reset');
+             }, 5000);
+          setTimeout(function() {
+              document.getElementById("sa").innerHTML =  "<div class='alert alert-warning' role='alert'><h4 class='alert-heading'><b>Uyari...</b></h4><p>Kuponunuzda henüz tamamlanmamış maçlar mevcuttur. </p></div><br><br>";
+         }, 6000);
+             
+         
+      });
+      </script>
+<%end%>
+
+      </div>
+    
+    </div>
+  </div>
+</div>     <br><br>     <div id="sa" ></div>
+<br><br><br><br><br>
+        
+<%end%>        
+        
+
+
+<br>
+&nbsp;<p></p>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<div class="section nomargin notopborder" style="background: #008dcf;
+			background: -webkit-linear-gradient(140deg, #43d282, #008dcf);
+			background: linear-gradient(140deg, #43d282, #008dcf); padding: 80px 0;">
+<div class="container clearfix">
+
+<div class="col_half ">
+
+<div class="col_one_third ">
+<a class="theBox" href="/home/nasil_uye_olunur">
+
+<h1>Nasıl Üye Olurum?</h1>
+ 
+<p>5 saniyede nasıl üye olacağınızı buradan öğrenin.</p></a>
+
+
+</div>
+
+
+<div class="col_one_third" href="/home/kuponlari_nasil_gorurum">
+<a class="theBox">
+
+<h1>Kayıtlı Kuponları Nasıl Görürüm?</h1>
+<p>Paketler arası nasıl geçiş yapılır buradan öğren.
+</p>
+</a>
+</div>
+
+
+<div class="col_one_third col_last">
+<a class="theBox" href="/home/iade_sartlari">
+
+<h1>Kuponları Nasıl Görürüm?</h1>
+<p>Kuponlarını nasıl göreceğini buradan öğren.</p>
+</a>
+</div>
+
+</div>
+
+
+<div class="col_half col_last nomargin">
+
+<div class="col_one_third ">
+<a class="theBox" href="/home/iade_sartlari">
+
+<h1>İade Şartlarınız Nelerdir?</h1>
+<p>100% Geri ödeme garantili şartlarımızı buradan öğren.</p>
+</a>
+</div>
+
+
+<div class="col_one_third ">
+<a class="theBox" href="/home/iade_sartlari">
+
+<h1>Nasıl Ödeme Yapabilirim?</h1>
+<p>Ödemeleri nasıl yapacağını buradan öğren.
+</p>
+</a>
+</div>
+
+
+<div class="col_one_third col_last">
+<a class="theBox" href="/home/kullanim_kosullari">
+<h1>Kullanım Koşulları</h1>
+<p>Kullanım koşullarımızı buradan öğren.</p>
+</a>
+</div>
+
+</div>
+
+</div>
+</div>

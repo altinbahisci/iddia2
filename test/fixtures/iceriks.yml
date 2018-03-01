@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mbs: MyString
+  saat: MyString
+  lig: MyString
+  kod: MyString
+  mac: MyString
+  oran1: MyString
+  oran2: MyString
+  oran3: MyString
+  oran4: MyString
+  oran5: MyString
+  oran6: MyString
+  oran7: MyString
+  oran8: MyString
+  oran9: MyString
+  oran10: MyString
+  oran11: MyString
+  oran12: MyString
+  oran13: MyString
+  oran14: MyString
+  oran15: MyString
+  oran16: MyString
+  oran17: MyString
+  oran18: MyString
+  oran19: MyString
+  oran20: MyString
+
+two:
+  mbs: MyString
+  saat: MyString
+  lig: MyString
+  kod: MyString
+  mac: MyString
+  oran1: MyString
+  oran2: MyString
+  oran3: MyString
+  oran4: MyString
+  oran5: MyString
+  oran6: MyString
+  oran7: MyString
+  oran8: MyString
+  oran9: MyString
+  oran10: MyString
+  oran11: MyString
+  oran12: MyString
+  oran13: MyString
+  oran14: MyString
+  oran15: MyString
+  oran16: MyString
+  oran17: MyString
+  oran18: MyString
+  oran19: MyString
+  oran20: MyString

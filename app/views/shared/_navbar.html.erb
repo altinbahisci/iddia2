@@ -1,0 +1,117 @@
+<div id="top-bar" class="hidden-xs">
+<div class="container clearfix">
+<div class="col_half nobottommargin ">
+
+</div>
+<div class="col_half col_last fright nobottommargin">
+
+<div class="top-links">
+<ul class="sf-js-enabled clearfix" style="touch-action: pan-y;">
+<li class="dsk">
+<a href="/">Anasayfa</a>
+</li>
+<li class="">
+<a href="/">Anasayfa</a>
+</li>
+<li>
+<a href="/home/hakkimizda">Hakkımızda</a>
+</li>
+<li>
+<a href="/home/sss">S.S.S.</a>
+</li>
+<li>
+<a href="/home/iletisim">İletişim</a>
+</li>
+
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<header id="header" class="full-header responsive-sticky-header">
+<div id="header-pack">
+<div class="container clearfix">
+<div id="main-menu-trigger" class="theTrigger"><i class="icn-reorder"></i></div>
+<div id="profile-trigger" class="theTrigger"><i class="icn-profile"></i></div>
+
+<div id="logo">
+<a href="" class="mainLogo" logo-changer="https://resmim.net/f/Z3omPb.png" logo-mobile-changer="https://resmim.net/f/Z3omPb.png" js-thelogo="https://resmim.net/f/Z3omPb.png"><img src="https://resmim.net/f/Z3omPb.png"></a>
+<a href="" class="retinaLogo" logo-changer="https://resmim.net/f/Z3omPb.png" logo-mobile-changer="https://resmim.net/f/Z3omPb.png" js-thelogo="https://resmim.net/f/Z3omPb.png" ></a>
+</div>
+
+
+<nav id="main-menu" class="navStyle">
+    
+   <ul class="menuz sf-js-enabled" style="touch-action: pan-y;">
+    
+     <li data-toggle="dropdown" js-toggle="tooltip" js-toggle-place="top">
+    <a href="/posts"> Kuponlarım </a>
+    </li>
+    <% if user_signed_in? %>
+        <ul class="dropdown-menu">
+          <li><a href="/posts/new">Yeni Kupon</a></li>
+          <li><a href="/posts">Kuponlar</a></li>
+        </ul>
+    <% end %>
+    <li current="">
+    <a href="/home/mac_sonuclari"> Canlı Sonuçlar </a>
+    </li>
+    <li>
+    <a href="/home/canli_destek"> Canlı Destek  </a>
+    </li>
+    
+    <% if user_signed_in? %>
+    <li js-toggle="tooltip" js-toggle-place="bottom" title="" data-original-title="E-mail">
+    <a><%= current_user.email %> </a>
+    </li>
+    <li js-toggle="tooltip" js-toggle-place="bottom" title="" data-original-title="Hızlı bir şekilde bakiye yükle">
+    <a href="/home/para_cek"> Para Çek </a>
+    </li>
+    <li js-toggle="tooltip" js-toggle-place="bottom" title="" data-original-title="Hızlı bir şekilde bakiye yükle">
+    <a href="/home/bakiye_yukle"> Para Yükle</a>
+    </li>
+    <li js-toggle="tooltip" js-toggle-place="bottom" title="" data-original-title="Bakiye">
+    <a> 
+    <% if current_user.bakiye==nil %>
+        0 TL
+     <% else %>
+        <%= current_user.bakiye.round(2) %> TL
+     <% end %>
+    </a>
+    </li>
+    <% end %>
+    
+    <% if user_signed_in? %>
+    <li class="register mob" style="margin-left:10px;margin-right:20px;">
+    <%= link_to 'Hesap', edit_user_registration_path ,:style=>'background: #1bce1f;'%> 
+    </li>
+    <li class="register mob" style="margin-left:10px;margin-right:20px;">
+        <%= link_to 'Çıkış', destroy_user_session_path, method: :delete,:style=>'background: #ff0000;'%>   
+    </li>
+    
+    <% else %>
+    <li class="register mob" style="margin-left:10px;margin-right:20px;">
+        <%= link_to 'Giriş', new_user_session_path ,:style=>'background: #ffc700;'%> 
+    </li>
+    <li class="signin mob" style="margin-left:10px;margin-right:20px;">
+        <%= link_to 'Ücretsiz Üye Ol', new_user_registration_path,:style=>'background: #1bce1f;'%>   
+    </li>
+    <% end %>
+    </ul>
+    
+</nav>
+
+
+</div>
+</div>
+</header>
+
+
+
+
+    
+  
+    

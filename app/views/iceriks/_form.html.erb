@@ -1,0 +1,123 @@
+<div class="section nomargin notopborder nobg">
+<%= form_for(@icerik) do |f| %>
+  <% if @icerik.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@icerik.errors.count, "error") %> prohibited this icerik from being saved:</h2>
+
+      <ul>
+      <% @icerik.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tarih %><br>
+    <%= f.text_field :tarih %>
+  </div>
+  <div class="field">
+    <%= f.label :mbs %><br>
+    <%= f.text_field :mbs %>
+  </div>
+  <div class="field">
+    <%= f.label :saat %><br>
+    <%= f.text_field :saat %>
+  </div>
+  <div class="field">
+    <%= f.label :lig %><br>
+    <%= f.text_field :lig %>
+  </div>
+  <div class="field">
+    <%= f.label :kod %><br>
+    <%= f.text_field :kod %>
+  </div>
+  <div class="field">
+    <%= f.label :mac %><br>
+    <%= f.text_field :mac %>
+  </div>
+  <div class="field">
+     <th>1</th>
+    <%= f.text_field :oran1 %>
+  </div>
+  <div class="field">
+    <th>X</th>
+    <%= f.text_field :oran2 %>
+  </div>
+  <div class="field">
+    <th>2</th>
+    <%= f.text_field :oran3 %>
+  </div>
+  <div class="field">
+    <th>1-X</th>
+    <%= f.text_field :oran4 %>
+  </div>
+  <div class="field">
+    <th>1-2</th>
+    <%= f.text_field :oran5 %>
+  </div>
+  <div class="field">
+     <th>X-2</th>
+    <%= f.text_field :oran6 %>
+  </div>
+  <div class="field">
+    <th>İY 1,5A</th>
+    <%= f.text_field :oran7 %>
+  </div>
+  <div class="field">
+    <th>İY 1,5Ü</th>
+    <%= f.text_field :oran8 %>
+  </div>
+  <div class="field">
+    <th>1,5 A</th>
+    <%= f.text_field :oran9 %>
+  </div>
+  <div class="field">
+    <th>1,5 Ü</th>
+    <%= f.text_field :oran10 %>
+  </div>
+  <div class="field">
+   <th>2,5 A</th>
+    <%= f.text_field :oran11 %>
+  </div>
+  <div class="field">
+    <th>2,5 Ü</th>
+    <%= f.text_field :oran12 %>
+  </div>
+  <div class="field">
+    <th>3,5 A</th>
+    <%= f.text_field :oran13 %>
+  </div>
+  <div class="field">
+    <th>3,5 Ü</th>
+    <%= f.text_field :oran14 %>
+  </div>
+  <div class="field">
+    <th>VAR</th>
+    <%= f.text_field :oran15 %>
+  </div>
+  <div class="field">
+    <th>YOK</th>
+    <%= f.text_field :oran16 %>
+  </div>
+  <div class="field">
+    <th>0-1TG</th>
+    <%= f.text_field :oran17 %>
+  </div>
+  <div class="field">
+    <th>2-3TG</th>
+    <%= f.text_field :oran18 %>
+  </div>
+  <div class="field">
+    <th>4-6TG</th>
+    <%= f.text_field :oran19 %>
+  </div>
+  <div class="field">
+    <th>+7 TG</th>
+    <%= f.text_field :oran20 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>

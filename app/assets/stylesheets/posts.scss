@@ -1,0 +1,22 @@
+// Place all the styles related to the posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.container { padding-top: 40px; }
+#details { font-family: "Quicksand", sans-serif; font-size: 60px; }
+.price { font-size: 25px; float: left; }
+.pricing_header { background: none repeat scroll 0% 0% green; border-radius: 5px 5px 0px 0px; transition: background 0.4s ease-out 0s; }
+.pricing_header h2 { text-align:center; line-height: 25px; padding: 15px 0px; margin: 0px; font-family: "Quicksand", sans-serif; font-weight: 400; color: white; }
+.list-group-item:first-child { border-top-right-radius: 0px; border-top-left-radius: 0px; }
+.btn { float: right; font-family: "Quicksand", sans-serif; font-weight:500;}
+.off { text-decoration: line-through; color: rgb(86,86,86); }
+.space {height: 2px; background-color: #75b1ae;}
+.trash { color:rgb(209, 91, 71); }
+.flag { color:rgb(248, 148, 6); }
+.panel-body { padding:0px; }
+.panel-footer .pagination { margin: 0; }
+.panel .glyphicon,.list-group-item .glyphicon { margin-right:5px; }
+.panel-body .radio, .checkbox { display:inline-block;margin:0px; }
+.panel-body input[type=checkbox]:checked + label { text-decoration: line-through;color: rgb(128, 144, 160); }
+.list-group-item:hover, a.list-group-item:focus {text-decoration: none;background-color: rgb(245, 245, 245);}
+.list-group { margin-bottom:0px; }
+
