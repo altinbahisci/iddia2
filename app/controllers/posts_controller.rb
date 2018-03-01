@@ -65,7 +65,21 @@ class PostsController < ApplicationController
         end
       end
     else
-
+      
+      if  Post.find(params[:id]).onay==nil
+          respond_to do |format|
+            if @post.update(post_params)
+              format.js
+              format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi..' }
+              format.json { render :show, status: :ok, location: @post }
+              
+            else
+              format.html { render :edit }
+              format.json { render json: @post.errors, status: :unprocessable_entity }
+            end
+          end
+      end
+      
       if (current_user.bakiye>0) && (Post.find(params[:id]).onay==2)
         if (current_user.bakiye.to_f) > (Post.find(params[:id]).tutar.to_f)
           respond_to do |format|
@@ -91,20 +105,6 @@ class PostsController < ApplicationController
         end 
       else
         redirect_to posts_path
-      end  
-      
-      if current_user.bakiye==nil
-          respond_to do |format|
-            if @post.update(post_params)
-              format.js
-              format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi..' }
-              format.json { render :show, status: :ok, location: @post }
-            else
-              format.html { render :edit }
-              format.json { render json: @post.errors, status: :unprocessable_entity }
-            end
-            redirect_to posts_path
-          end
       end
     
     end
