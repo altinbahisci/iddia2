@@ -5,7 +5,7 @@
   <% if current_user.email==@admin %> 
   <div class="section nomargin notopborder nobg" style="padding: 80px 0 0 0;">
     <div class="theTitle center">
-    <h1>Düzenleme Aşamasındaki Kuponları</h1>
+    <h1>Düzenleme Aşamasındaki Kuponlar</h1>
     <hr class="red">
     <p></p>
     </div>
@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <span class="glyphicon glyphicon-list"></span>Düzenleme Aşamasındaki Kuponları
+                        <span class="glyphicon glyphicon-list"></span>Düzenleme Aşamasındaki Kuponlar
                     </div>
                     <div class="panel-body">
                         <ul class="list-group">
@@ -34,6 +34,7 @@
                                 </div>
                                 <div class="pull-right action-buttons">
                                         <%= link_to 'bu maile bakiye at', edit_post_path(post),class:"glyphicon glyphicon-pencil" %>
+
                                       <%= link_to '', post, method: :delete, data: { confirm: 'Are you sure?' } ,class:'glyphicon glyphicon-trash'%>
                                 </div>
                             </li>
@@ -81,6 +82,7 @@
                                         </label>
                                     </div>
                                     <div class="pull-right action-buttons">
+                                          <%= link_to 'bu maile bakiye at', edit_post_path(post),class:"glyphicon glyphicon-pencil" %>
                                           <%= link_to '', post ,class:'glyphicon glyphicon-search'%>
                                           <%= link_to '', post, method: :delete, data: { confirm: 'Are you sure?' } ,class:'glyphicon glyphicon-trash'%>
                                     </div>
