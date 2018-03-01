@@ -96,11 +96,69 @@
         </div>
     <% end %>
     <br>
+    
+    
     &nbsp;<p></p>
     </div>
     <div class="clear"></div>
     </div>
     </div>
+  
+  
+  
+    <div class="section nomargin notopborder nobg" style="padding: 80px 0 0 0;">
+    <div class="theTitle center">
+    <h1>oynanmış Kuponlar</h1>
+    <hr class="red">
+    <p></p>
+    </div>
+    <div class="container">
+    <div class="theSoftBox">
+    <p></p>
+    
+        <div class="container" style="margin-left: 280px;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-list"></span>Kayıtlı Kuponlar
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                               <% @selam.each do |post| %>
+                                <li class="list-group-item" style="height: 82px;">
+                                    <div class="checkbox">
+                                        <span class="glyphicon glyphicon-check"></span>
+                                        <label>
+                                            <%= post.title %>
+                                            <%= post.user.email %>
+                                        </label>
+                                    </div>
+                                    <div class="pull-right action-buttons">
+                                          <%= link_to 'bu maile bakiye at', edit_post_path(post),class:"glyphicon glyphicon-pencil" %>
+                                          <%= link_to '', post ,class:'glyphicon glyphicon-search'%>
+                                          <%= link_to '', post, method: :delete, data: { confirm: 'Are you sure?' } ,class:'glyphicon glyphicon-trash'%>
+                                    </div>
+                                </li>
+                                <% end %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <br>
+    
+    
+    &nbsp;<p></p>
+    </div>
+    <div class="clear"></div>
+    </div>
+    </div>
+  
+  
+  
   
      <div class="section nomargin notopborder nobg" style="padding: 80px 0 0 0;">
     <div class="theTitle center">

@@ -25,6 +25,7 @@ class PostsController < ApplicationController
       @admin = 'admin@admin.com'
       @onaypostadmin = Post.where(onay:nil).all
       @postadmin = Post.where(onay:2).all
+      @selam = Post.where(onay:1).all
       
       @uyeler=User.all
       
@@ -52,18 +53,41 @@ class PostsController < ApplicationController
   def update
 
     if current_user.email=='admin@admin.com'
-      respond_to do |format|
-        if @post.update(post_params)
-          format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi.' }
-          format.json { render :show, status: :ok, location: @post }
-          @u = User.find(@post.user_id)
-          @u.update_attributes(bakiye: @post.bakiye)
-
+        if Post.find(params[:id]).onay==2
+          respond_to do |format|
+            if @post.update(post_params)
+              format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi.' }
+              format.json { render :show, status: :ok, location: @post }
+              @bakiyeuser=User.find(current_user.id).bakiye
+              @onayPosts = Post.find(params[:id]).tutar.to_f
+              @yenibakiye = @bakiyeuser - @onayPosts
+              
+              
+              
+              @u = User.find(current_user.id) 
+              @u.update_attributes(bakiye: @yenibakiye) 
+             
+            else
+              format.html { render :edit }
+              format.json { render json: @post.errors, status: :unprocessable_entity }
+            end
+          end
         else
-          format.html { render :edit }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
+          respond_to do |format|
+            if @post.update(post_params)
+              format.html { redirect_to @post, notice: 'Başarıyla Kaydedildi.' }
+              format.json { render :show, status: :ok, location: @post }
+              @u = User.find(@post.user_id)
+              @u.update_attributes(bakiye: @post.bakiye)
+    
+            else
+              format.html { render :edit }
+              format.json { render json: @post.errors, status: :unprocessable_entity }
+            end
+          end
         end
-      end
+        
+        
     else
       
 
