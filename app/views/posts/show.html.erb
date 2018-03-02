@@ -198,12 +198,12 @@
                         <div class="field">
                           <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,@s*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
                         </div><br> 
-                         <span class="glyphicon glyphicon-ok"> orjinal Misli : <b><%=@misli%></b> &nbsp;</span><br><br>
+                         <span class="glyphicon glyphicon-ok"> orjinal Misli : <b><%=@misli.to_i%></b> &nbsp;</span><br><br>
                          <span class="glyphicon glyphicon-ok"> orjinal tutar : <b><%=@post.tutar.to_f%></b> &nbsp;</span><br><br>
                          <%= f.hidden_field :bakiye, :value => @post.user.bakiye%>
                          <%= f.hidden_field :onay, :value => 1.to_i%>
                         <div class="actions">
-                              <span class="glyphicon glyphicon-ok"><b> <%= @post.sum%></b></span>
+                              <span class="glyphicon glyphicon-ok"><b> <%= @post.sum.round(2)%></b></span>
                               <%= f.submit 'Düzenlemeyi bitir', class:'btn btn-md btn-warning'%>
                         </div><br><br>
                         
@@ -390,8 +390,8 @@
                     
                       <div class="field">
                       <span class="glyphicon glyphicon-ok"> Tutar : <b><%=@post.tutar.to_f%></b> &nbsp;</span><br><br>
-                      <span class="glyphicon glyphicon-ok"> Misli : <b><%=@post.sum.to_f/(@post.tutar.to_f*@post.comments.last.sum.to_f)%></b> &nbsp;</span><br><br>
-                       <span class="glyphicon glyphicon-ok"> Toplam Oran: <b><%=@post.comments.last.sum.to_f%></b> &nbsp;</span><br><br><br>
+                      <span class="glyphicon glyphicon-ok"> Misli : <b><%=(@post.sum.to_f/(@post.tutar.to_f*@post.comments.last.sum.to_f)).to_i%></b> &nbsp;</span><br><br>
+                       <span class="glyphicon glyphicon-ok"> Toplam Oran: <b><%=@post.comments.last.sum.to_f.round(2)%></b> &nbsp;</span><br><br><br>
                       <p class="price" id="price">Kazanç:<%=@post.sum.round(2)%> TL</p>
                     </div><br>
                     
