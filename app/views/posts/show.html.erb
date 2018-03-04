@@ -58,15 +58,11 @@
                           <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,@sum*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
                            <span class="glyphicon glyphicon-ok"><b> Min:100 Max:2000 </b></span>
                         </div><br>
-                         <div class="field">
-                            <span class="glyphicon glyphicon-ok"> Kupon Tutarı:</b> &nbsp;</span><%= f.text_field :tutar %><br>
-                        </div><br>
-                        
                          
                          <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
                          <%= f.hidden_field :onay, :value => 2.to_i%>
                         <div class="actions">
-                              <%= f.submit 'Düzenlemeyi bitir', class:'btn btn-md btn-warning'%>
+                              <%= f.submit 'Kuponu Kaydet', class:'btn btn-md btn-warning'%>
                         </div><br><br>
                         
                 <% end %>
@@ -74,78 +70,6 @@
                     </div>
           <%end%> 
                
-               
-           
-              
-          <% if @post.onay==2 %> 
-            <div class="theTitle left">
-            <h1>Düzenlenmiş Kuponum</h1>
-           
-            
-         
-             <script type="text/javascript">
-               function changeFunc() {
-                var selectBox = document.getElementById("selectBox");
-                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-                document.getElementById("price").innerHTML =(Math.round(selectedValue * 100)/100).toFixed(2)+' TL';
-               }
-              </script>
-              
-                </div>
-               
-                
-              
-              <div class="container" id="fixed"> 
-                <div class="col-md-4" >
-                  <div class="pricing_header">
-                  <h2>KUPONUM</h2>
-                   <h2> <%=@post.title%> </h2>
-          		<div class="space"></div>
-          		</div>
-          		<ul class="list-group">
-                  <%@sum=1%>  
-               
-                  <%@comments.each do |c|%>
-                    <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> &emsp;
-                    <b><%=c.bdy%></b>&emsp;
-                    <b class="btn-danger btn-xs"><%=c.kod%></b><br><b><%=c.mac%></b><br><b>MS : <%=c.durum%></b>&emsp;<b class="btn-primary btn-xs"><%=c.mbs%>
-                    </b>&emsp;<b>Oran : <%=c.oran%></b>
-                    </li>
-                    <% @sum=c.sum.to_f %>
-                    
-                  <%end%>
-                
-                    <div id="comments">
-               
-              </div> 
-              </ul>
-            
-               <% @sumson=@post.sum.to_f* Comment.where(post_id: @post.id).last.sum.to_f*@post.tutar.to_f%>
-                    <li class="list-group-item">
-                <%= form_for(@post, :remote=>'true') do |f| %>
-                        <div class="field">
-                          <span class="glyphicon glyphicon-ok"> Misli: <b><%=@post.sum%></b> &nbsp;</span><%= f.hidden_field :sum, :value => @sumson  %>
-                          <span class="glyphicon glyphicon-ok"> Kupon Tutarı: <b><%=@post.tutar.to_f%></b> &nbsp;</span>
-                        </div><br>
-                        
-                         <p class="price" id="price"><%= @sumson.round(2)  %> TL</p>
-                         
-                         <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
-                         <%= f.hidden_field :onay, :value => 1.to_i%>
-                        <div class="actions">
-                          <% if (current_user.bakiye.to_f > @post.tutar.to_f ) && ( @post.tutar.to_f != 0 ) %>
-                              <%= f.submit 'Kuponu Yatır', class:'btn btn-md btn-warning' %>
-                          <% end %>
-                        </div>
-                        <br><br>
-                <% end %>
-                
-                    </li>  
-                     </div>
-          <%end%>     
-          
-          
-             
           <% if @post.onay==1 %> 
             <div class="theTitle left">
             <h1>İddia Oranları</h1>
@@ -172,10 +96,7 @@
           		</div>
           		<ul class="list-group">
           		  
-                <% @sumson=@post.tutar.to_f* Comment.where(post_id: @post.id).last.sum.to_f*@post.tutar.to_f %>
-               <% @s=Comment.where(post_id: @post.id).last.sum.to_f * @post.tutar.to_f%>
-                
-                 <%@misli=@post.sum.to_f/(@post.tutar.to_i * Comment.where(post_id: @post.id).last.sum.to_f) %>
+            
                  
                   <%@comments.each do |c|%>
                     <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> &emsp;
@@ -194,16 +115,18 @@
     
                     <li class="list-group-item">
                  
+
                 <%= form_for(@post, :remote=>'true') do |f| %>
                         <div class="field">
-                          <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,@s*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
+                          <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :tutar , options_for_select((1..2000).to_a.map { |val| [val,@sum*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
                         </div><br> 
-                         <span class="glyphicon glyphicon-ok"> orjinal Misli : <b><%=@misli.to_i%></b> &nbsp;</span><br><br>
-                         <span class="glyphicon glyphicon-ok"> orjinal tutar : <b><%=@post.tutar.to_f%></b> &nbsp;</span><br><br>
+                         <span class="glyphicon glyphicon-ok">orjinal Misli : <b><%=(@post.sum.to_f).to_i%></b> &nbsp;</span><br><br>
+                         <span class="glyphicon glyphicon-ok">orjinal Toplam Oran: <b><%= @sum%></b> &nbsp;</span><br><br><br>
+                          <p class="price" id="price">Kazanç:<%=@post.tutar.to_f.round(2)%> TL</p>
                          <%= f.hidden_field :bakiye, :value => @post.user.bakiye%>
+                         
                          <%= f.hidden_field :onay, :value => 1.to_i%>
                         <div class="actions">
-                              <span class="glyphicon glyphicon-ok"><b> <%= @post.sum.round(2)%></b></span>
                               <%= f.submit 'Düzenlemeyi bitir', class:'btn btn-md btn-warning'%>
                         </div><br><br>
                         
@@ -213,7 +136,12 @@
           <%end%> 
                
             
-
+    <div class="field">
+                     
+                      
+                     
+                      
+                    </div><br>
         
 <%else%>
 <div class="section nomargin notopborder nobg">
@@ -275,17 +203,16 @@
                       <span class="glyphicon glyphicon-ok"> Misli: &nbsp;</span><%= f.select :sum , options_for_select((1..2000).to_a.map { |val| [val,@sum*val.to_f] }), {}, {id: "selectBox",onchange:"changeFunc();"} %>
                        <span class="glyphicon glyphicon-ok"><b> Min:100 Max:2000 </b></span>
                     </div><br>
-                     <div class="field">
-                        <span class="glyphicon glyphicon-ok"> Kupon Tutarı:</b> &nbsp;</span><%= f.text_field :tutar %><br>
-                        
-                    </div><br>
-                    
-                     
+                
                      <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
                      <%= f.hidden_field :onay, :value => 2.to_i%>
                     <div class="actions">
-                          <%= f.submit 'Düzenlemeyi bitir', class:'btn btn-md btn-warning'%>
-                    </div><br><br>
+                         
+                    </div>
+                       <div class="actions">
+                              <%= f.submit 'Kuponu Kaydet', class:'btn btn-md btn-warning'%>
+                        </div>
+                    <br><br>
                     
             <% end %>
                 </li>  
@@ -337,23 +264,26 @@
            
           </div> 
           </ul>
-        
-           <% @sumson=@post.sum.to_f* Comment.where(post_id: @post.id).last.sum.to_f*@post.tutar.to_f%>
+            <% @sa=@post.sum.round(2)*@post.comments.last.sum.round(2)%>
                 <li class="list-group-item">
             <%= form_for(@post, :remote=>'true') do |f| %>
                     <div class="field">
-                      <span class="glyphicon glyphicon-ok"> Misli: <b><%=@post.sum%></b> &nbsp;</span><%= f.hidden_field :sum, :value => @sumson  %>
-                      <span class="glyphicon glyphicon-ok"> Kupon Tutarı: <b><%=@post.tutar.to_f%></b> &nbsp;</span>
-                    
+                      <span class="glyphicon glyphicon-ok"> Oran: <b><%=@post.comments.last.sum.round(2)%></b> &nbsp;</span>
+                      <span class="glyphicon glyphicon-ok"> Misli: <b><%=@post.sum.round(2)%></b> &nbsp;</span><br>
                     </div><br>
                     
-                     <p class="price" id="price"><%= @sumson.round(2)  %> TL</p>
+                    <div class="field">
+                      <span class="price"> Kazanç: <b><%=@sa.round(2)%> TL</b> &nbsp;</span><br>
+                    </div><br> 
                      
                      <%= f.hidden_field :bakiye, :value => current_user.bakiye%>
                      <%= f.hidden_field :onay, :value => 1.to_i%>
+                     <%= f.hidden_field :tutar, :value => @sa.to_f%>
                     <div class="actions">
-                      <% if (current_user.bakiye.to_f > @post.tutar.to_f ) && ( @post.tutar.to_f != 0 ) %>
+                      <% if (current_user.bakiye.to_f > @post.sum.to_f ) && ( @post.sum.to_f != 0 ) %>
                           <%= f.submit 'Kuponu Yatır', class:'btn btn-md btn-warning' %>
+                      <% else %>
+                          <a href="home/bakiye_yukle" class='btn btn-md btn-warning'>Yetersiz Bakiye</a>
                       <% end %>
                     </div>
                     <br><br>
@@ -389,14 +319,15 @@
                     <br>
                     
                       <div class="field">
-                      <span class="glyphicon glyphicon-ok"> Tutar : <b><%=@post.tutar.to_f%></b> &nbsp;</span><br><br>
-                      <span class="glyphicon glyphicon-ok"> Misli : <b><%=(@post.sum.to_f/(@post.tutar.to_f*@post.comments.last.sum.to_f)).to_i%></b> &nbsp;</span><br><br>
+                     
+                      <span class="glyphicon glyphicon-ok"> Misli : <b><%=(@post.sum.to_f).to_i%></b> &nbsp;</span><br><br>
                        <span class="glyphicon glyphicon-ok"> Toplam Oran: <b><%=@post.comments.last.sum.to_f.round(2)%></b> &nbsp;</span><br><br><br>
-                      <p class="price" id="price">Kazanç:<%=@post.sum.round(2)%> TL</p>
+                      <p class="price" id="price">Kazanç:<b> <%=@post.tutar.to_f.round(2)%> </b>TL</p>
+                      
                     </div><br>
                     
                     <div class="actions">
-                         <button  style="margin-top:25px;"  class="btn btn-success btn-lg" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Kupon Sorgulanıyor...(min 1-2 dk)">Para Çek</button>
+                         <button  style="margin-top:25px;"  class="btn btn-success btn-lg" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Kupon Sorgulanıyor...(min 1-2 dk)">Kuponu Sorgula</button>
                     </div>
                     <br><br>  <br><br>
             </li> 

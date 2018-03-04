@@ -68,6 +68,7 @@ class CommentsController < ApplicationController
     @r.save
     
     respond_to do |format|
+      format.js
       format.html { redirect_to post_url(params[:post_id]) }
     end
   end
