@@ -1,39 +1,4 @@
-<div class="container">
-	<div class="row">
-		<div id="primary" class="col-sm-12 col-md-12">									
-			<div class="iddaaprogram">
-					<div class="ustbaslik">
-						<div class="ustbaslikcon">
-							<div class="oran1" style="padding-left: 6px;padding-right: 6px;">TARİH</div>
-							<div class="oran1" >MBS</div>
-							<div class="oran1">SAAT</div>
-							<div class="oran1" >LİG</div>
-							<div class="oran1">KOD</div>
-							<div class="btakim">MAÇ</div>
-							<div class="oran1">1</div>
-							<div class="oran1">X</div>
-							<div class="oran1">2</div>
-							<div class="oran1">1-X</div>
-							<div class="oran1">1-2</div>
-							<div class="oran1">X-2</div>
-							<div class="oran1">İY 1,5A</div>
-							<div class="oran1">İY 1,5Ü</div>
-							<div class="oran1">1,5 A</div>
-							<div class="oran1">1,5 Ü</div>
-							<div class="oran1">2,5 A</div>
-							<div class="oran1">2,5 Ü</div>
-							<div class="oran1">3,5 A</div>
-							<div class="oran1">3,5 Ü</div>
-							<div class="oran1">VAR</div>
-							<div class="oran1">YOK</div>
-							<div class="oran1">0-1TG</div>
-							<div class="oran1">2-3TG</div>
-							<div class="oran1">4-6TG</div>
-							<div class="oran1">+7 TG</div>
-						</div>
-					</div>
-					
-					   
+
 			<% @macekle.each do |post| %>
                <% @tarih.push(post.tarih)%>
                <% @mbs.push(post.mbs)%>
@@ -63,228 +28,290 @@
                <% @oran20.push(post.oran20)%>
             <% end %>
 					
-          <% s = @tarih.count %>
-          <% for i in 0..s-1 %>
-                  <div class="iddaamac">
-  					<div class="anaoranlar">
-                      <div class="iddaalig"><%= @tarih[i] %></div>
-                      <div class="mbs5"><%= @mbs[i] %></div>
-                      <div class="oran2"><%= @saat[i] %></div>
-                      <div class="oran2"><%= @lig[i] %></div>
-                      <div class="oran2"><%= @iddaaKodu[i] %></div>
-                      <div class="btakim"><%= @macIsmi[i] %></div>
-                      <div class="kalinoran2">
-                       
-                        <% if @oran1[i]!="-" && !@oran1[i].empty?  %>
-                              <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
-                                  <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
-                                  <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
-                                  <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
-                                  <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
-                                  <%= f.hidden_field :oran,:value => @oran1[i], id: :comment_oran%>
-                                  <%= f.hidden_field :durum,:value => '1', id: :comment_durum%>
-                                  <%= f.hidden_field :sum,:value => @sumtop , id: :comment_sum%>
-                                  <%= f.submit @oran1[i], class:"myButton"%>
-                          <% end %> 
-                        <% end %>  
-                         </div>
-                      <div class="oran2">
-                      <% if @oran2[i]!="-" && !@oran2[i].empty?  %>   
-                        <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
-                            <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
-                            <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
-                            <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
-                            <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
-                            <%= f.hidden_field :oran,:value => @oran2[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => 'X', id: :comment_durum%>
-                            <%= f.submit @oran2[i], class:"myButton"%>
-                        <% end %> 
-                      <% end %> 
-                      </div>
-                      <div class="oran2">
-                      <% if @oran3[i]!="-" && !@oran3[i].empty?  %>  
-                        <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
-                            <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
-                            <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
-                            <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
-                            <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
-                            <%= f.hidden_field :oran,:value => @oran3[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '2', id: :comment_durum%>
-                            <%= f.submit @oran3[i], class:"myButton"%>
-                        <% end %>  
-                      <% end %>  
-                      </div>
-                      <div class="oran2">
-                       <% if @oran4[i]!="-" && !@oran4[i].empty?  %>   
+
+    <% s = @tarih.count %>
+    <% for i in 0..3 %>
+
+       <div class="container">
+          <div class="row">
+            <div class="iddaaprogram">
+                <div class="ustbaslik"> 
+                <section id='main'>
+                    <div class="ustbaslikcon">  
+                        <div class="col">
+                            <div class="btakim">
+                            <%= @macIsmi[i] %>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                          <div class="oran1" ><%= @tarih[i] %></div>
+                          <div class="oran1" ><%= @saat[i] %></div>
+                          <div class="oran1"><%= @iddaaKodu[i] %></div>
+                          <div class="oran1" ><%= @mbs[i] %></div>
+                          <div class="oran1"><%= @lig[i] %></div>
+                        </div>
+                    </div>
+                    
+                       <div id='selectPeriodRangePanel'>
+                            <div class="col">
+                              <div class="oran1">&emsp;&emsp;1&emsp;</div>
+                              <div class="oran1" >X</div>
+                              <div class="oran1">2</div>
+                              <div class="oran1" >VAR</div>
+                              <div class="oran1">YOK</div>
+                            </div>
+                            
+                            <div class="col" >
+                              <div class="oran3" >
+                              <% if @oran1[i]!="-" && !@oran1[i].empty?  %>
+                                  <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
+                                      <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
+                                      <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
+                                      <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
+                                      <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
+                                      <%= f.hidden_field :oran,:value => @oran1[i], id: :comment_oran%>
+                                      <%= f.hidden_field :durum,:value => '1', id: :comment_durum%>
+                                      <%= f.hidden_field :sum,:value => @sumtop , id: :comment_sum%>
+                                      <%= f.submit @oran1[i], class:"myButton"%>
+                                  <% end %> 
+                                <% end %>  
+                              </div>
+                              <div class="oran3" >
+                                <% if @oran2[i]!="-" && !@oran2[i].empty?  %>   
+                                <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
+                                    <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
+                                    <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
+                                    <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
+                                    <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
+                                    <%= f.hidden_field :oran,:value => @oran2[i], id: :comment_oran%>
+                                    <%= f.hidden_field :durum,:value => 'X', id: :comment_durum%>
+                                    <%= f.submit @oran2[i], class:"myButton"%>
+                                <% end %> 
+                              <% end %>  
+                              </div>
+                              <div class="oran3" >
+                            <% if @oran3[i]!="-" && !@oran3[i].empty?  %>  
+                                <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
+                                    <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
+                                    <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
+                                    <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
+                                    <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
+                                    <%= f.hidden_field :oran,:value => @oran3[i], id: :comment_oran%>
+                                    <%= f.hidden_field :durum,:value => '2', id: :comment_durum%>
+                                    <%= f.submit @oran3[i], class:"myButton"%>
+                                <% end %>  
+                              <% end %> 
+                              </div>
+                              <div class="oran3" >
+                                   <% if @oran4[i]!="-" && !@oran4[i].empty?  %>   
                          <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran4[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '1-X', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => 'VAR', id: :comment_durum%>
                             <%= f.submit @oran4[i], class:"myButton"%>
                           <% end %> 
                         <% end %>
-                      </div>
-                      <div class="kalinoran2">
-                      <% if @oran5[i]!="-" && !@oran5[i].empty?  %>
+                              </div>
+                              <div class="oran3" >
+                                 <% if @oran5[i]!="-" && !@oran5[i].empty?  %>
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran5[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '1-2', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => 'YOK', id: :comment_durum%>
                             <%= f.submit @oran5[i], class:"myButton"%>
                         <% end %>   
-                      <% end %> 
-                      </div>
-                      <div class="oran1">
-                      <% if @oran6[i]!="-" && !@oran6[i].empty?  %>  
+                      <% end %>   
+                                  </div>
+                             </div>
+                             
+                             <div class="col">
+                              <div class="oran1">&emsp;&emsp;1-X&emsp;</div>
+                              <div class="oran1" >1-2</div>
+                              <div class="oran1">X-2</div>
+                              <div class="oran1" >İY 1,5A</div>
+                              <div class="oran1">İY 1,5Ü</div>
+                            </div>
+                            
+                            <div class="col" >
+                              <div class="oran3" >
+                                 <% if @oran6[i]!="-" && !@oran6[i].empty?  %>  
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran6[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => 'X-2', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => '1-X', id: :comment_durum%>
                             <%= f.submit @oran6[i], class:"myButton"%>
                         <% end %> 
-                      <% end %>  
-                      </div>
-                      <div class="kalinoran1">
-                      <% if @oran7[i]!="-" && !@oran7[i].empty?  %>   
+                      <% end %>    
+                                  
+                              </div>
+                              <div class="oran3" >
+                                   <% if @oran7[i]!="-" && !@oran7[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran7[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => 'İY 1,5A', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => '1-2', id: :comment_durum%>
                             <%= f.submit @oran7[i], class:"myButton"%>
                         <% end %> 
                       <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran8[i]!="-" && !@oran8[i].empty?  %>   
+                                  </div>
+                              <div class="oran3" >
+                              <% if @oran8[i]!="-" && !@oran8[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran8[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => 'İY 1,5Ü', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => 'X-2', id: :comment_durum%>
                             <%= f.submit @oran8[i], class:"myButton"%>
                         <% end %> 
                       <% end %>  
-                      </div>
-                      <div class="oran2">
-                      <% if @oran9[i]!="-" && !@oran9[i].empty?  %>   
+                              </div>
+                              <div class="oran3" >
+                                  
+                                 <% if @oran9[i]!="-" && !@oran9[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran9[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '1,5 A', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => 'İY 1,5A', id: :comment_durum%>
                             <%= f.submit @oran9[i], class:"myButton"%>
                         <% end %>
-                      <% end %>  
-                      </div>
-                      <div class="oran2">
-                      <% if @oran10[i]!="-" && !@oran10[i].empty?  %>   
+                      <% end %>   
+                              </div>
+                              <div class="oran3" >
+                               <% if @oran10[i]!="-" && !@oran10[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran10[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '1,5 Ü', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => 'İY 1,5Ü', id: :comment_durum%>
                             <%= f.submit @oran10[i], class:"myButton"%>
                         <% end %>
                       <% end %>  
-                      </div>
-                      <div class="kalinoran2">
-                      <% if @oran11[i]!="-" && !@oran11[i].empty?  %>   
+                              </div>
+                             </div>
+                             
+                            <div class="col">
+                              <div class="oran1">&emsp;&emsp;1,5A&emsp;</div>
+                              <div class="oran1" >1,5 Ü</div>
+                              <div class="oran1">2,5 A</div>
+                              <div class="oran1" >2,5 Ü</div>
+                              <div class="oran1">3,5 A</div>
+                            </div>
+                            
+                            <div class="col" >
+                              <div class="oran3" >
+                                 <% if @oran11[i]!="-" && !@oran11[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran11[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '2,5 A', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => '1,5A', id: :comment_durum%>
                             <%= f.submit @oran11[i], class:"myButton"%>
                         <% end %>
-                      <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran12[i]!="-" && !@oran12[i].empty?  %>   
+                      <% end %>    
+                                  
+                                </div>
+                              <div class="oran3" >
+                                 <% if @oran12[i]!="-" && !@oran12[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran12[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '2,5 Ü', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => '1,5 Ü', id: :comment_durum%>
                             <%= f.submit @oran12[i], class:"myButton"%>
                         <% end %> 
-                      <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran13[i]!="-" && !@oran13[i].empty?  %>   
+                      <% end %>    
+                                  </div>
+                              <div class="oran3" >
+                                    <% if @oran13[i]!="-" && !@oran13[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran13[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '3,5 A', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => '2,5 A', id: :comment_durum%>
                             <%= f.submit @oran13[i], class:"myButton"%>
                         <% end %> 
                       <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran14[i]!="-" && !@oran14[i].empty?  %>   
+                                  </div>
+                              <div class="oran3" >
+                                <% if @oran14[i]!="-" && !@oran14[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran14[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => '3,5 Ü', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => '2,5 Ü', id: :comment_durum%>
                             <%= f.submit @oran14[i], class:"myButton"%>
                         <% end %> 
                       <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran15[i]!="-" && !@oran15[i].empty?  %>   
+                              </div>
+                              <div class="oran3" >
+                                 <% if @oran15[i]!="-" && !@oran15[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran15[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => 'VAR', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => '3,5 A', id: :comment_durum%>
                             <%= f.submit @oran15[i], class:"myButton"%>
                         <% end %>
-                      <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran16[i]!="-" && !@oran16[i].empty?  %>   
+                      <% end %>    
+                                  
+                              </div>
+                             </div>
+                             
+                            <div class="col">
+                              <div class="oran1">&emsp;&emsp;3,5Ü&emsp;</div>
+                              <div class="oran1" >0-1TG</div>
+                              <div class="oran1">2-3TG</div>
+                              <div class="oran1" >4-6TG</div>
+                              <div class="oran1">+7 TG</div>
+                            </div>
+                            
+                            <div class="col" >
+                              <div class="oran3" >
+                              <% if @oran16[i]!="-" && !@oran16[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
                             <%= f.hidden_field :mbs,:value => @mbs[i], id: :comment_mbs%>
                             <%= f.hidden_field :kod,:value => @iddaaKodu[i], id: :comment_kod%>
                             <%= f.hidden_field :oran,:value => @oran16[i], id: :comment_oran%>
-                            <%= f.hidden_field :durum,:value => 'YOK', id: :comment_durum%>
+                            <%= f.hidden_field :durum,:value => '3,5Ü', id: :comment_durum%>
                             <%= f.submit @oran16[i], class:"myButton"%>
                         <% end %>
                       <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran17[i]!="-" && !@oran17[i].empty?  %>   
+                              
+                              </div>
+                              <div class="oran3" >
+                                    <% if @oran17[i]!="-" && !@oran17[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
@@ -295,9 +322,10 @@
                             <%= f.submit @oran17[i], class:"myButton"%>
                         <% end %> 
                       <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran18[i]!="-" && !@oran18[i].empty?  %>   
+                                  
+                              </div>
+                              <div class="oran3" >
+                                   <% if @oran18[i]!="-" && !@oran18[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
@@ -307,10 +335,12 @@
                             <%= f.hidden_field :durum,:value => '2-3TG', id: :comment_durum%>
                             <%= f.submit @oran18[i], class:"myButton"%>
                         <% end %>
-                      <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran19[i]!="-" && !@oran19[i].empty?  %>   
+                      <% end %>   
+                                  
+                              </div>
+                              <div class="oran3" >
+                                  
+                                   <% if @oran19[i]!="-" && !@oran19[i].empty?  %>   
                         <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
@@ -320,10 +350,10 @@
                             <%= f.hidden_field :durum,:value => '4-6TG', id: :comment_durum%>
                             <%= f.submit @oran19[i], class:"myButton"%>
                         <% end %>
-                      <% end %>  
-                      </div>
-                      <div class="oran1">
-                      <% if @oran20[i]!="-" && !@oran20[i].empty?  %>   
+                      <% end %>   
+                              </div>
+                              <div class="oran3" >
+                                <% if @oran20[i]!="-" && !@oran20[i].empty?  %>   
                        <%= form_for([@post, @post.comments.new], :remote=>'true', :controller => 'comments', :action => 'create') do |f| %>
                             <%= f.hidden_field :bdy,:value => @saat[i], id: :comment_bdy%>
                             <%= f.hidden_field :mac,:value => @macIsmi[i], id: :comment_mac%>
@@ -334,13 +364,18 @@
                             <%= f.submit @oran20[i], class:"myButton"%>
                         <% end %>
                       <% end %>  
-                      </div>
-                   	</div>
-				</div>
-          <% end %>
-          
-          
-			</div>	
-		</div>
-	</div>
-</div>
+                              </div>
+                             </div> 
+                             
+                        </div>     
+                  </div> 
+                </section>  
+            </div>    
+          </div>
+        </div>
+<% end %>
+
+	   
+
+
+                  
